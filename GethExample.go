@@ -12,17 +12,18 @@ import (
 	"log"
 	"math"
 	"math/big"
+	"os"
 )
 
 const sourceWalletAddress = "0x26006236eaB6409D9FDECb16ed841033d6B4A6bC"                          //first account from ganache-cli -m "test"
-var sourcePrivateKeyString = "1ce6a4cc4c9941a4781349f988e129accdc35a55bb3d5b1a7b342bc2171db484" //os.Getenv("CRYPTO_TEST_ACCOUNT_PRIVATE_KEY") //we get this from that same ganache-cli output
+var sourcePrivateKeyString = os.Getenv("CRYPTO_TEST_ACCOUNT_PRIVATE_KEY") //we get this from that same ganache-cli output
 
 func main() {
 	const blockchainServer = "http://localhost:8545"
 
 	//create a new keystore containing a private key (wallet)
 	myKeyStore := keystore.NewKeyStore("./wallets", keystore.StandardScryptN, keystore.StandardScryptP)
-	password := "secret" //os.Getenv("CRYPTO_KEYSTORE_PASSWORD")
+	password := os.Getenv("CRYPTO_KEYSTORE_PASSWORD")
 	destinationAccount, err := myKeyStore.NewAccount(password)
 	panicIfError(err)
 
